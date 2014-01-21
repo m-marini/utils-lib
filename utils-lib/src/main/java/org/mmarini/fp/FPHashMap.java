@@ -5,7 +5,6 @@ package org.mmarini.fp;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  * @author us00852
@@ -119,5 +118,17 @@ public class FPHashMap<K, V> extends HashMap<K, V> implements FPMap<K, V> {
 		for (final Entry<K, V> e : entrySet())
 			l.add(f.apply(e));
 		return l;
+	}
+
+	/**
+	 * @see org.mmarini.fp.FPMap#reduce(org.mmarini.fp.Functor2)
+	 */
+	@Override
+	public Entry<K, V> reduce(
+			final Functor2<Entry<K, V>, Entry<K, V>, Entry<K, V>> f) {
+		Entry<K, V> r = null;
+		for (final Entry<K, V> i : entrySet())
+			r = (r == null) ? i : f.apply(r, i);
+		return r;
 	}
 }

@@ -17,6 +17,7 @@ import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import org.mmarini.fp.Functor2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,10 +27,8 @@ import org.slf4j.LoggerFactory;
  */
 public class GridLayoutHelper<T extends Container> {
 
-	interface Modifier {
-		public abstract GridBagConstraints apply(GridBagConstraints c,
-				String[] args);
-
+	interface Modifier extends
+			Functor2<GridBagConstraints, GridBagConstraints, String[]> {
 	}
 
 	private static final Logger logger = LoggerFactory

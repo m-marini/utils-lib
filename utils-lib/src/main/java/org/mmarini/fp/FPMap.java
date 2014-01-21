@@ -49,6 +49,13 @@ public interface FPMap<K, V> extends Map<K, V> {
 	/**
 	 * 
 	 * @param f
+	 * @return
+	 */
+	public Entry<K, V> reduce(Functor2<Entry<K, V>, Entry<K, V>, Entry<K, V>> f);
+
+	/**
+	 * 
+	 * @param f
 	 */
 	public void forEach(Functor1<Void, Entry<K, V>> f);
 

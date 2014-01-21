@@ -64,4 +64,11 @@ public interface FPList<T> extends List<T> {
 	 * @return
 	 */
 	public <S> FPList<S> map(Functor1<S, T> f);
+
+	/**
+	 * 
+	 * @param f
+	 * @return
+	 */
+	public T reduce(Functor2<T, T, T> f);
 }

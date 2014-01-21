@@ -134,4 +134,15 @@ public class FPArrayList<T> extends ArrayList<T> implements FPList<T> {
 			l.add(f.apply(i));
 		return l;
 	}
+
+	/**
+	 * @see org.mmarini.fp.FPList#reduce(org.mmarini.fp.Functor2)
+	 */
+	@Override
+	public T reduce(final Functor2<T, T, T> f) {
+		T r = null;
+		for (final T i : this)
+			r = (r == null) ? i : f.apply(r, i);
+		return r;
+	}
 }
