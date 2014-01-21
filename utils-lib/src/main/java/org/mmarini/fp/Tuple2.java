@@ -24,40 +24,6 @@ public class Tuple2<T0, T1> implements Entry<T0, T1> {
 	}
 
 	/**
-	 * @see java.util.Map.Entry#getKey()
-	 */
-	public T0 getKey() {
-		return key;
-	}
-
-	/**
-	 * @see java.util.Map.Entry#getValue()
-	 */
-	public T1 getValue() {
-		return value;
-	}
-
-	/**
-	 * @see java.util.Map.Entry#setValue(java.lang.Object)
-	 */
-	public T1 setValue(final T1 value) {
-		throw new IllegalAccessError(
-				"Method setValue cannot invoked on immutable Tuple2");
-	}
-
-	/**
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((key == null) ? 0 : key.hashCode());
-		result = prime * result + ((value == null) ? 0 : value.hashCode());
-		return result;
-	}
-
-	/**
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -81,6 +47,43 @@ public class Tuple2<T0, T1> implements Entry<T0, T1> {
 		} else if (!value.equals(other.value))
 			return false;
 		return true;
+	}
+
+	/**
+	 * @see java.util.Map.Entry#getKey()
+	 */
+	@Override
+	public T0 getKey() {
+		return key;
+	}
+
+	/**
+	 * @see java.util.Map.Entry#getValue()
+	 */
+	@Override
+	public T1 getValue() {
+		return value;
+	}
+
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((key == null) ? 0 : key.hashCode());
+		result = prime * result + ((value == null) ? 0 : value.hashCode());
+		return result;
+	}
+
+	/**
+	 * @see java.util.Map.Entry#setValue(java.lang.Object)
+	 */
+	@Override
+	public T1 setValue(final T1 value) {
+		throw new IllegalAccessError(
+				"Method setValue cannot invoked on immutable Tuple2");
 	}
 
 	/**

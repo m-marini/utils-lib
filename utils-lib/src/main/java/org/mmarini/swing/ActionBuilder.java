@@ -4,7 +4,6 @@
 package org.mmarini.swing;
 
 import java.awt.Component;
-import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -36,56 +35,114 @@ import org.slf4j.LoggerFactory;
 public class ActionBuilder {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ActionBuilder.class);
+
+	/**
+	 * 
+	 * @param l
+	 * @param c
+	 * @return
+	 */
+	public static ActionBuilder create(final ChangeListener l,
+			final Component... c) {
+		return new ActionBuilder(null, null, l, c);
+	}
+
+	/**
+	 * 
+	 * @param c
+	 * @return
+	 */
+	public static ActionBuilder create(final Component... c) {
+		return new ActionBuilder(null, null, null, c);
+	}
+
+	/**
+	 * 
+	 * @param b
+	 * @param l
+	 * @param c
+	 * @return
+	 */
+	public static ActionBuilder create(final ResourceBundle b,
+			final ChangeListener l, final Component... c) {
+		return new ActionBuilder(b, null, l, c);
+	}
+
+	/**
+	 * 
+	 * @param b
+	 * @param c
+	 * @return
+	 */
+	public static ActionBuilder create(final ResourceBundle b,
+			final Component... c) {
+		return new ActionBuilder(b, null, null, c);
+	}
+
+	/**
+	 * 
+	 * @param b
+	 * @param o
+	 * @param l
+	 * @param c
+	 * @return
+	 */
+	public static ActionBuilder create(final ResourceBundle b,
+			final SwingOptions o, final ChangeListener l, final Component... c) {
+		return new ActionBuilder(b, o, l, c);
+	}
+
+	/**
+	 * 
+	 * @param b
+	 * @param o
+	 * @param c
+	 * @return
+	 */
+	public static ActionBuilder create(final ResourceBundle b,
+			final SwingOptions o, final Component... c) {
+		return new ActionBuilder(b, o, null, c);
+	}
+
+	/**
+	 * 
+	 * @param o
+	 * @param l
+	 * @param c
+	 * @return
+	 */
+	public static ActionBuilder create(final SwingOptions o,
+			final ChangeListener l, final Component... c) {
+		return new ActionBuilder(null, o, l, c);
+	}
+
+	/**
+	 * 
+	 * @param o
+	 * @param c
+	 * @return
+	 */
+	public static ActionBuilder create(final SwingOptions o,
+			final Component... c) {
+		return new ActionBuilder(null, o, null, c);
+	}
+
 	private final ChangeListener lookAndFeelListener;
 	private final Component[] comps;
 	private final ResourceBundle bundle;
+	private final SwingOptions options;
 
 	/**
 	 * 
-	 * @param key
-	 * @return
-	 */
-	private String getString(final String key) {
-		if (bundle != null)
-			try {
-				return bundle.getString(key);
-			} catch (final MissingResourceException e) {
-				return '!' + key + '!';
-			}
-		else
-			return key;
-	}
-
-	/**
-	 * 
-	 */
-	public ActionBuilder(final String bundleName) {
-		this(ResourceBundle.getBundle(bundleName), null);
-	}
-
-	/**
-	 * 
-	 */
-	public ActionBuilder(final ResourceBundle bundle) {
-		this(bundle, null);
-	}
-
-	/**
-	 * 
-	 * @param bundleName
+	 * @param bundle
+	 * @param options
 	 * @param lookAndFeelListener
 	 * @param comps
 	 */
-	public ActionBuilder(final String bundleName,
-			final ChangeListener lookAndFeelListener, final Component... comps) {
-		this(ResourceBundle.getBundle(bundleName), lookAndFeelListener, comps);
-	}
-
-	/**
-	 * @param lookAndFeelListener
-	 */
-	public ActionBuilder(final ResourceBundle bundle,
-			final ChangeListener lookAndFeelListener, final Component... comps) {
+	protected ActionBuilder(final ResourceBundle bundle,
+			final SwingOptions options,
+			final ChangeListener lookAndFeelListener, final Component[] comps) {
+		this.options = options;
 		this.bundle = bundle;
 		this.comps = comps;
 		this.lookAndFeelListener = lookAndFeelListener;
@@ -113,6 +170,7 @@ public class ActionBuilder {
 		final ButtonGroup g = new ButtonGroup();
 		final ChangeListener l = new ChangeListener() {
 
+			@Override
 			public void stateChanged(final ChangeEvent e) {
 				final ButtonModel s = (ButtonModel) e.getSource();
 				final String lf = UIManager.getLookAndFeel().getClass()
@@ -121,9 +179,12 @@ public class ActionBuilder {
 				if (s.isSelected() && !lf.equals(c)) {
 					try {
 						UIManager.setLookAndFeel(c);
-						for (final Component c1 : comps)
-							SwingUtilities.updateComponentTreeUI(c1);
+						if (comps != null)
+							for (final Component c1 : comps)
+								SwingUtilities.updateComponentTreeUI(c1);
 						logger.debug("Set look&feel to {}", c);
+						if (options != null)
+							options.saveLookAndFeel();
 						if (lookAndFeelListener != null)
 							lookAndFeelListener.stateChanged(e);
 					} catch (final Exception e1) {
@@ -167,7 +228,7 @@ public class ActionBuilder {
 		final String mk = getString(String.format(
 				"ActionBuilder.%s.menmonicKey", id)); //$NON-NLS-1$
 		if (!mk.startsWith("!")) //$NON-NLS-1$
-			m.setMnemonic(KeyEvent.getExtendedKeyCodeForChar(mk.charAt(0)));
+			m.setMnemonic((int) mk.charAt(0));
 
 		final String si = getString(String.format(
 				"ActionBuilder.%s.smallIcon", id)); //$NON-NLS-1$
@@ -206,6 +267,22 @@ public class ActionBuilder {
 		return mb;
 	}
 
+	/**
+	 * 
+	 * @param key
+	 * @return
+	 */
+	private String getString(final String key) {
+		if (bundle != null)
+			try {
+				return bundle.getString(key);
+			} catch (final MissingResourceException e) {
+				return '!' + key + '!';
+			}
+		else
+			return key;
+	}
+
 	public <A extends Action> A setUp(final A a, final String id) {
 		a.putValue(Action.NAME,
 				getString(String.format("ActionBuilder.%s.name", id))); //$NON-NLS-1$
@@ -218,8 +295,7 @@ public class ActionBuilder {
 		final String mk = getString(String.format(
 				"ActionBuilder.%s.menmonicKey", id)); //$NON-NLS-1$
 		if (!mk.startsWith("!")) //$NON-NLS-1$
-			a.putValue(Action.MNEMONIC_KEY,
-					KeyEvent.getExtendedKeyCodeForChar(mk.charAt(0)));
+			a.putValue(Action.MNEMONIC_KEY, (int) mk.charAt(0));
 
 		final String si = getString(String.format(
 				"ActionBuilder.%s.smallIcon", id)); //$NON-NLS-1$

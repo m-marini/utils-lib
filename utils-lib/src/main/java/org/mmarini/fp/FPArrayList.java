@@ -46,6 +46,7 @@ public class FPArrayList<T> extends ArrayList<T> implements FPList<T> {
 	/**
 	 * @see org.mmarini.fp.FPList#contains(org.mmarini.fp.Functor1)
 	 */
+	@Override
 	public boolean contains(final Functor1<Boolean, T> f) {
 		return find(f) != null;
 	}
@@ -53,6 +54,7 @@ public class FPArrayList<T> extends ArrayList<T> implements FPList<T> {
 	/**
 	 * @see org.mmarini.fp.FPList#count(org.mmarini.fp.Functor1)
 	 */
+	@Override
 	public int count(final Functor1<Boolean, T> f) {
 		int c = 0;
 		for (final T i : this)
@@ -64,6 +66,7 @@ public class FPArrayList<T> extends ArrayList<T> implements FPList<T> {
 	/**
 	 * @see org.mmarini.fp.FPList#filter(org.mmarini.fp.Functor1)
 	 */
+	@Override
 	public FPList<T> filter(final Functor1<Boolean, T> f) {
 		final FPList<T> l = new FPArrayList<T>();
 		for (final T i : this)
@@ -75,6 +78,7 @@ public class FPArrayList<T> extends ArrayList<T> implements FPList<T> {
 	/**
 	 * @see org.mmarini.fp.FPList#find(org.mmarini.fp.Functor1)
 	 */
+	@Override
 	public T find(final Functor1<Boolean, T> f) {
 		for (final T i : this)
 			if (f.apply(i))
@@ -85,6 +89,7 @@ public class FPArrayList<T> extends ArrayList<T> implements FPList<T> {
 	/**
 	 * @see org.mmarini.fp.FPList#foldLeft(org.mmarini.fp.Functor2)
 	 */
+	@Override
 	public <S> S fold(final S s, final Functor2<S, S, T> f) {
 		S r = s;
 		for (final T i : this)
@@ -95,6 +100,7 @@ public class FPArrayList<T> extends ArrayList<T> implements FPList<T> {
 	/**
 	 * @see org.mmarini.fp.FPList#forEach(org.mmarini.fp.Functor1)
 	 */
+	@Override
 	public void forEach(final Functor1<Void, T> f) {
 		for (final T i : this)
 			f.apply(i);
@@ -103,6 +109,7 @@ public class FPArrayList<T> extends ArrayList<T> implements FPList<T> {
 	/**
 	 * @see org.mmarini.fp.FPList#groupBy(org.mmarini.fp.Functor1)
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public <K> FPMap<K, FPList<T>> groupBy(final Functor1<K, T> f) {
 		final FPMap<K, FPList<T>> r = new FPHashMap<K, FPList<T>>();
@@ -120,6 +127,7 @@ public class FPArrayList<T> extends ArrayList<T> implements FPList<T> {
 	/**
 	 * @see org.mmarini.fp.FPList#map(org.mmarini.fp.Functor1)
 	 */
+	@Override
 	public <S> FPList<S> map(final Functor1<S, T> f) {
 		final FPList<S> l = new FPArrayList<S>();
 		for (final T i : this)

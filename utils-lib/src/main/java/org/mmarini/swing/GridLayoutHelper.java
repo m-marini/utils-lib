@@ -26,21 +26,46 @@ import org.slf4j.LoggerFactory;
  */
 public class GridLayoutHelper<T extends Container> {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(GridLayoutHelper.class);
-
 	interface Modifier {
 		public abstract GridBagConstraints apply(GridBagConstraints c,
 				String[] args);
 
 	}
 
-	private final ResourceBundle bundle;
+	private static final Logger logger = LoggerFactory
+			.getLogger(GridLayoutHelper.class);
 
 	private static final Map<String, Modifier> MODIFIERS = new HashMap<String, Modifier>();
+
+	/**
+	 * 
+	 * @param c
+	 * @return
+	 */
+	private static GridBagConstraints create(final GridBagConstraints c) {
+		return new GridBagConstraints(c.gridx, c.gridy, c.gridwidth,
+				c.gridheight, c.weightx, c.weighty, c.anchor, c.fill, c.insets,
+				c.ipadx, c.ipady);
+	}
+
+	public static GridBagConstraints modify(final GridBagConstraints c,
+			final String modifiers) {
+		GridBagConstraints n = c;
+		for (final String s : modifiers.split("\\s+")) {
+			final String[] a = s.split(",");
+			final Modifier m = MODIFIERS.get(a[0]);
+			if (m != null)
+				n = m.apply(n, a);
+		}
+		return n;
+	}
+
+	private final ResourceBundle bundle;
+
 	{
 		MODIFIERS.put("at", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				if (args.length >= 3)
@@ -57,6 +82,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("ipad", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				if (args.length >= 3)
@@ -73,6 +99,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("span", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				if (args.length >= 3)
@@ -89,6 +116,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("insets", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				if (args.length <= 1)
@@ -115,6 +143,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("weight", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				if (args.length >= 5)
@@ -131,6 +160,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("def", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				return new GridBagConstraints();
@@ -138,6 +168,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("e", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -147,6 +178,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("ne", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -156,6 +188,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("nw", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -165,6 +198,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("w", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -174,6 +208,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("n", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -183,6 +218,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("s", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -192,6 +228,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("se", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -201,6 +238,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("sw", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -210,6 +248,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("below", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -219,6 +258,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("right", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -228,6 +268,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("center", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -237,6 +278,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("hspan", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -246,6 +288,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("vspan", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -255,6 +298,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("rspan", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -264,6 +308,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("bspan", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -273,6 +318,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("nospan", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -283,6 +329,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("nofill", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -292,6 +339,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("hfill", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -301,6 +349,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("vfill", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -310,6 +359,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("noinsets", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -319,6 +369,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("noweight", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 				final GridBagConstraints n = create(c);
@@ -329,6 +380,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("hw", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 
@@ -350,6 +402,7 @@ public class GridLayoutHelper<T extends Container> {
 		});
 		MODIFIERS.put("vw", new Modifier() {
 
+			@Override
 			public GridBagConstraints apply(final GridBagConstraints c,
 					final String[] args) {
 
@@ -369,29 +422,6 @@ public class GridLayoutHelper<T extends Container> {
 				}
 			}
 		});
-	}
-
-	public static GridBagConstraints modify(final GridBagConstraints c,
-			final String modifiers) {
-		GridBagConstraints n = c;
-		for (final String s : modifiers.split("\\s+")) {
-			final String[] a = s.split(",");
-			final Modifier m = MODIFIERS.get(a[0]);
-			if (m != null)
-				n = m.apply(n, a);
-		}
-		return n;
-	}
-
-	/**
-	 * 
-	 * @param c
-	 * @return
-	 */
-	private static GridBagConstraints create(final GridBagConstraints c) {
-		return new GridBagConstraints(c.gridx, c.gridy, c.gridwidth,
-				c.gridheight, c.weightx, c.weighty, c.anchor, c.fill, c.insets,
-				c.ipadx, c.ipady);
 	}
 
 	private final T container;
@@ -416,25 +446,6 @@ public class GridLayoutHelper<T extends Container> {
 	 */
 	public GridLayoutHelper(final T container) {
 		this((ResourceBundle) null, container);
-	}
-
-	/**
-	 * 
-	 * @param bundleName
-	 * @param container
-	 */
-	public GridLayoutHelper(final String bundleName, final T container) {
-		this(ResourceBundle.getBundle(bundleName), container);
-	}
-
-	/**
-	 * 
-	 * @param mods
-	 * @return
-	 */
-	public GridLayoutHelper<T> modify(final String mods) {
-		constraints = modify(constraints, mods);
-		return this;
 	}
 
 	/**
@@ -469,6 +480,13 @@ public class GridLayoutHelper<T extends Container> {
 	}
 
 	/**
+	 * @return the container
+	 */
+	public T getContainer() {
+		return container;
+	}
+
+	/**
 	 * 
 	 * @param key
 	 * @return
@@ -485,9 +503,12 @@ public class GridLayoutHelper<T extends Container> {
 	}
 
 	/**
-	 * @return the container
+	 * 
+	 * @param mods
+	 * @return
 	 */
-	public T getContainer() {
-		return container;
+	public GridLayoutHelper<T> modify(final String mods) {
+		constraints = modify(constraints, mods);
+		return this;
 	}
 }
