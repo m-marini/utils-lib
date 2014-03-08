@@ -1,0 +1,2 @@
+
+deploy:deploy-file -Durl=file://C:/MMData/git/utils-lib/utils-lib/repo/ -Dfile=target/utils-lib-1.0.0.jar -DgroupId=org.mmarini -DartifactId=utils-lib -Dpackaging=jar -Dversion=1.0.0
