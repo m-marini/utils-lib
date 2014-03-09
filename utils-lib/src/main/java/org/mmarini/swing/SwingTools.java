@@ -13,10 +13,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.WindowConstants;
@@ -37,6 +40,85 @@ import org.slf4j.LoggerFactory;
 public class SwingTools {
 	private static final Logger logger = LoggerFactory
 			.getLogger(SwingTools.class);
+
+	private final ResourceBundle bundle;
+	private final Component parentComponent;
+
+	/**
+	 * @param bundle
+	 */
+	public SwingTools(final ResourceBundle bundle) {
+		this(bundle, null);
+	}
+
+	/**
+	 * 
+	 * @param bundle
+	 * @param parentComponent
+	 */
+	public SwingTools(final ResourceBundle bundle,
+			final Component parentComponent) {
+		this.bundle = bundle;
+		this.parentComponent = parentComponent;
+	}
+
+	/**
+	 * @param key
+	 * @param args
+	 */
+	public void alertLocalized(final Exception e, final String key,
+			final Object... args) {
+		logger.error(e.getMessage(), e);
+		JOptionPane.showMessageDialog(
+				parentComponent,
+				new String[] { String.format(getString(key), args),
+						e.getMessage() }, getString("Alert.title"), //$NON-NLS-1$
+				JOptionPane.ERROR_MESSAGE);
+
+	}
+
+	/**
+	 * 
+	 * @param key
+	 * @return
+	 */
+	private String getString(final String key) {
+		try {
+			return bundle.getString(key);
+		} catch (MissingResourceException e) {
+			return "!!! " + key + " !!!";
+		}
+	}
+
+	/**
+	 * @param e
+	 */
+	public void alert(final Exception e) {
+		logger.error(e.getMessage(), e);
+		JOptionPane.showMessageDialog(parentComponent, e.getMessage(),
+				getString("Alert.title"), //$NON-NLS-1$
+				JOptionPane.ERROR_MESSAGE);
+	}
+
+	/**
+	 * @param key
+	 * @param args
+	 */
+	public void alertLocalized(final String key, final Object... args) {
+		JOptionPane.showMessageDialog(parentComponent,
+				String.format(getString(key), args), getString("Alert.title"), //$NON-NLS-1$
+				JOptionPane.WARNING_MESSAGE);
+	}
+
+	/**
+	 * @param message
+	 * @param args
+	 */
+	public void alert(final String message, final Object... args) {
+		JOptionPane.showMessageDialog(parentComponent,
+				String.format(message, args), getString("Alert.title"), //$NON-NLS-1$
+				JOptionPane.WARNING_MESSAGE);
+	}
 
 	/**
 	 * 

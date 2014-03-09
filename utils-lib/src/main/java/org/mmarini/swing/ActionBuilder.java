@@ -226,7 +226,7 @@ public class ActionBuilder {
 			m.setAccelerator(KeyStroke.getKeyStroke(ak));
 
 		final String mk = getString(String.format(
-				"ActionBuilder.%s.menmonicKey", id)); //$NON-NLS-1$
+				"ActionBuilder.%s.mnemonicKey", id)); //$NON-NLS-1$
 		if (!mk.startsWith("!")) //$NON-NLS-1$
 			m.setMnemonic((int) mk.charAt(0));
 
@@ -293,7 +293,7 @@ public class ActionBuilder {
 			a.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(ak));
 
 		final String mk = getString(String.format(
-				"ActionBuilder.%s.menmonicKey", id)); //$NON-NLS-1$
+				"ActionBuilder.%s.mnemonicKey", id)); //$NON-NLS-1$
 		if (!mk.startsWith("!")) //$NON-NLS-1$
 			a.putValue(Action.MNEMONIC_KEY, (int) mk.charAt(0));
 
