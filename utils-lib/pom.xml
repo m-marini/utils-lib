@@ -33,7 +33,45 @@
 					<packaging>jar</packaging>
 				</configuration>
 			</plugin>
-		</plugins>
+			<!-- 
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8.1</version>
+				<configuration>
+					<url>file://${project.basedir}/repo/</url>
+					<file>${project.basedir}/libs/vecmath.jar</file>
+					<groupId>org.mmarini.java3d</groupId>
+					<artifactId>vecmath</artifactId>
+					<version>1.5.2</version>
+					<packaging>jar</packaging>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8.1</version>
+				<configuration>
+					<url>file://${project.basedir}/repo/</url>
+					<file>${project.basedir}/libs/j3dcore.jar</file>
+					<groupId>org.mmarini.java3d</groupId>
+					<artifactId>j3dcore</artifactId>
+					<version>1.5.2</version>
+					<packaging>jar</packaging>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8.1</version>
+				<configuration>
+					<url>file://${project.basedir}/repo/</url>
+					<file>${project.basedir}/libs/j3dutils.jar</file>
+					<groupId>org.mmarini.java3d</groupId>
+					<artifactId>j3dutils</artifactId>
+					<version>1.5.2</version>
+					<packaging>jar</packaging>
+				</configuration>
+			</plugin>
+ -->
+ 		</plugins>
 	</build>
 	<dependencies>
 		<dependency>
