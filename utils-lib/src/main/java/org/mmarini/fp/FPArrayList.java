@@ -37,6 +37,7 @@ public class FPArrayList<T> extends ArrayList<T> implements FPList<T> {
 	 * 
 	 * @param args
 	 */
+	@SafeVarargs
 	public FPArrayList(final T... args) {
 		super(args.length);
 		for (final T i : args)
@@ -110,7 +111,6 @@ public class FPArrayList<T> extends ArrayList<T> implements FPList<T> {
 	 * @see org.mmarini.fp.FPList#groupBy(org.mmarini.fp.Functor1)
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
 	public <K> FPMap<K, FPList<T>> groupBy(final Functor1<K, T> f) {
 		final FPMap<K, FPList<T>> r = new FPHashMap<K, FPList<T>>();
 		for (final T i : this) {

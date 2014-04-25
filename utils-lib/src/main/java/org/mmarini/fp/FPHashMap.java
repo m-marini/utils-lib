@@ -5,7 +5,6 @@ package org.mmarini.fp;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  * @author us00852
@@ -23,6 +22,7 @@ public class FPHashMap<K, V> extends HashMap<K, V> implements FPMap<K, V> {
 	/**
 	 * 
 	 */
+	@SafeVarargs
 	public FPHashMap(final Entry<? extends K, ? extends V>... args) {
 		super(args.length);
 		for (final Entry<? extends K, ? extends V> e : args)
