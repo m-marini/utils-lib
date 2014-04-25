@@ -13,7 +13,6 @@ import org.junit.Test;
 public class FPHashMapTest {
 	private FPHashMap<String, String> map;
 
-	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() {
 		map = new FPHashMap<String, String>(new Tuple2<String, String>("AK",
@@ -31,6 +30,20 @@ public class FPHashMapTest {
 						return !"BK".equals(p.getKey());
 					}
 				}), allOf(hasEntry("AK", "AV"), hasEntry("CK", "CV")));
+	}
+
+	@Test
+	public void testRemap() {
+		assertThat(
+				map.remap(new Functor1<String, Map.Entry<String, String>>() {
+
+					@Override
+					public String apply(final Entry<String, String> p) {
+						return p.getKey() + p.getValue();
+					}
+				}),
+				allOf(hasEntry("AK", "AKAV"), hasEntry("BK", "BKBV"),
+						hasEntry("CK", "CKCV")));
 	}
 
 }

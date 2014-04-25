@@ -65,4 +65,11 @@ public interface FPMap<K, V> extends Map<K, V> {
 	 * @return
 	 */
 	public Entry<K, V> reduce(Functor2<Entry<K, V>, Entry<K, V>, Entry<K, V>> f);
+
+	/**
+	 * 
+	 * @param f
+	 * @return
+	 */
+	public <S> FPMap<K, S> remap(Functor1<S, Entry<K, V>> f);
 }

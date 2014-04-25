@@ -136,4 +136,15 @@ public class FPHashMap<K, V> extends HashMap<K, V> implements FPMap<K, V> {
 			r = (r == null) ? i : f.apply(r, i);
 		return r;
 	}
+
+	/**
+	 * @see org.mmarini.fp.FPMap#remap(org.mmarini.fp.Functor1)
+	 */
+	@Override
+	public <S> FPMap<K, S> remap(final Functor1<S, java.util.Map.Entry<K, V>> f) {
+		final FPMap<K, S> r = new FPHashMap<>();
+		for (final Entry<K, V> e : entrySet())
+			r.put(e.getKey(), f.apply(e));
+		return r;
+	}
 }
