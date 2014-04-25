@@ -5,6 +5,7 @@ package org.mmarini.fp;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * @author us00852
@@ -75,7 +76,11 @@ public class FPHashMap<K, V> extends HashMap<K, V> implements FPMap<K, V> {
 	 */
 	@Override
 	public FPMap<K, V> filter(final Functor1<Boolean, Entry<K, V>> f) {
-		return null;
+		final FPHashMap<K, V> r = new FPHashMap<K, V>();
+		for (final Entry<K, V> e : entrySet())
+			if (f.apply(e))
+				r.put(e.getKey(), e.getValue());
+		return r;
 	}
 
 	/**
