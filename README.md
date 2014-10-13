@@ -67,22 +67,67 @@ tool bar and menu bar with string operators.
 
     /*
      * Create an action builder based on a resource bundle to resolve the string localization.
-     * The components c1, c2 are bind to the look and feel action change action to redraw
-     * the components whenever the look and feel changes.
+     * The SwingOptions are used to store look and feel properties.
+     * The components c1, c2 are bind to the look and feel change event to redraw
+     * the components on look and feel changes.
      */
     ResourceBundle b = ...
+    SwingOptions o = ...
     Component c1 = ...
     Component c2 = ...
-    ActionBuilder builder = ActionBuilder.create(b, c1, c2);
+    ActionBuilder builder = ActionBuilder.create(b, o, c1, c2);
 
     /*
-     * Create an action builder based on a resource bundle to resolve the string localization.
-     * The components c1, c2 are bind to the look and feel action change action to redraw
-     * the components whenever the look and feel changes a change event will be notified to the change listener
+     * If parameter listener are used a change event will be notified to it on
+     * look and feel changes.
      */
-    ResourceBundle b = ...
-    Component c1 = ...
-    Component c2 = ...
     ChangeListener l = ...
-    ActionBuilder builder = ActionBuilder.create(b, l, c1, c2);
+    ActionBuilder builder = ActionBuilder.create(b, o, l, c1, c2);
 
+    /*
+     * If look and feel are not used (createMenuBar not used)
+     * a simpler factory may be used
+     */
+    ActionBuilder builder = ActionBuilder.create(b);
+    
+    /*
+     * Create a menu bar by parameters.
+     * Parameters may be an action
+     * or null to insert a separator
+     * or the string "lookAndFeel" to insert the available look and feel entries
+     * or a key string to insert a menu filled up with resource bundle properties
+     *
+     * The resource bundle properties may be:
+     * ActionBuilder.<key>.name = menu text
+     * ActionBuilder.<key>.acceleratorKey = accelerator key text (eg. "ctrl X")
+     * ActionBuilder.<key>.mnemonicKey = menmonik key text ("O")
+     * ActionBuilder.<key>.smallIcon = optional menu icon
+     * ActionBuilder.<key>.shortDescription = optional tool tips text
+     */
+    Action openAction = ...
+    Action exitAction = ...
+    JMenuBar menuBar = builder.createMenuBar("file", openAction, null, exitAction, "options", "lookAndFeel");
+
+    /*
+     * Create a horizontal tool bar by parameters.
+     * Parameters may be an action
+     * or null to insert a separator
+     */
+    JToolBar toolBar = builder.createHorizontalToolBar(openAction, null, exitAction);
+
+    /*
+     * Set up an action
+     *
+     * The resource bundle properties may be:
+     * ActionBuilder.<key>.name = menu text
+     * ActionBuilder.<key>.acceleratorKey = accelerator key text (eg. "ctrl X")
+     * ActionBuilder.<key>.mnemonicKey = menmonik key text ("O")
+     * ActionBuilder.<key>.largeIcon = optional button icon
+     * ActionBuilder.<key>.smallIcon = optional menu icon
+     * ActionBuilder.<key>.longDescription = optional help text
+     * ActionBuilder.<key>.shortDescription = optional tool tip text
+     */
+    Action a = ...
+    Action b = setUp(a, "key");
+    
+    
