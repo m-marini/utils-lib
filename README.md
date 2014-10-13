@@ -157,9 +157,11 @@ attributes with string operators
      * ipad,<x>,<y>           : set ipad constraint
      * span,<row>,<col>       : set span constraint
      * insets,<size>          : set the insets for all margins
-     * insets,<bt>,<lr>       : set the insets for top/botton and left/right margins
-     * insets,<t>,<l>,<b>,<r> : set the insets for top, left,botton and right margins
+     * insets,<bt>,<lr>       : set the insets for top/bottom and left/right margins
+     * insets,<t>,<l>,<b>,<r> : set the insets for top, left,bottom and right margins
+     * noinsets               : set the insets to 0
      * weight,<h>,<v>         : set the horizontal and vertical weights for the resizing component
+     * noweight               : set the horizontal and vertical weights to 0
      * def                    : set the default constraints
      * n                      : set north alignement
      * ne                     : set north-east alignement
@@ -174,6 +176,12 @@ attributes with string operators
      * right                  : set the gridx to RELATIVE (insert right)
      * hspan                  : set the gridwidth to REMAINDER horizontal span)
      * vspan                  : set the gridheight to REMAINDER (vertical span)
+     * rspan                  : set the gridwidth to RELATIVE (right span)
+     * bspan                  : set the gridheight to RELATIVE (bottom span)
+     * nospan                 : set the gridwidth and gridheight to 1 (no span)
+     * nofill                 : set no fill
+     * hfill                  : set horizontal fill
+     * vfill                  : set vertical fill
      */
     ResourceBundle b = ...
     JTextField text = new JTextField();
