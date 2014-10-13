@@ -13,7 +13,8 @@ The `org.mmarini.swing` has utilities to manage easly swing UI:
    attributes with string operators
 [Troubleshooting](https://github.com/scripted-editor/scripted/wiki/FAQ#wiki-Troubleshooting)
 
--  [`ActionBuilder`](https://github.com/m-marini/) sets up Action properties from resource bundle file and creates
+-  [`ActionBuilder`](https://github.com/m-marini/utils-lib/blob/master/README.md#actionbuilder)
+   sets up Action properties from resource bundle file and creates
    tool bar and menu bar with
    string operators.
 
