@@ -151,17 +151,19 @@ attributes with string operators
      * a string thah will add a JLabel based on resource bundle key.
      * string starting with "+" char that will change temporary the constraints appliyed to next added component
      *
-     * The string constraints used in modify and in add("+"...) may be:
+     * The string constraints used in modify and in add("+"...) may be a blank separated operators as:
      * 
      * at,<row>,<col>         : set position constraints
      * ipad,<x>,<y>           : set ipad constraint
      * span,<row>,<col>       : set span constraint
+     * noinsets               : set the insets to 0
      * insets,<size>          : set the insets for all margins
      * insets,<bt>,<lr>       : set the insets for top/bottom and left/right margins
      * insets,<t>,<l>,<b>,<r> : set the insets for top, left,bottom and right margins
-     * noinsets               : set the insets to 0
-     * weight,<h>,<v>         : set the horizontal and vertical weights for the resizing component
      * noweight               : set the horizontal and vertical weights to 0
+     * hw,<h>                 : set the horizontal weight for the resizing component
+     * vw,<v>                 : set the vertical weight for the resizing component
+     * weight,<h>,<v>         : set the horizontal and vertical weights for the resizing component
      * def                    : set the default constraints
      * n                      : set north alignement
      * ne                     : set north-east alignement
@@ -174,15 +176,22 @@ attributes with string operators
      * center                 : set center alignement
      * below                  : set the gridy to RELATIVE (insert below)
      * right                  : set the gridx to RELATIVE (insert right)
+     * nospan                 : set the gridwidth and gridheight to 1 (no span)
      * hspan                  : set the gridwidth to REMAINDER horizontal span)
      * vspan                  : set the gridheight to REMAINDER (vertical span)
      * rspan                  : set the gridwidth to RELATIVE (right span)
      * bspan                  : set the gridheight to RELATIVE (bottom span)
-     * nospan                 : set the gridwidth and gridheight to 1 (no span)
      * nofill                 : set no fill
      * hfill                  : set horizontal fill
      * vfill                  : set vertical fill
+     * vfill                  : set vertical fill
+     * 
+     * The following example create a JPanel with a label west aligned and a JTextFiel east aligned and horizontal filled
+     * both with 2 pixels margins up, down, left and right.
      */
     ResourceBundle b = ...
     JTextField text = new JTextField();
-    JPanel panel = new GridLayoutHelper(b, new JPanel()).modify("").add("myTextLabel.text", "+", text).getContainer();
+    JPanel panel = new GridLayoutHelper(b, new JPanel())
+      .modify("insets,2 w")
+      .add("myTextLabel.text", "+hfill e", text)
+      .getContainer();
