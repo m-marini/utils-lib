@@ -18,8 +18,9 @@ The `org.mmarini.swing` has utilities to manage easly swing UI:
    tool bar and menu bar with
    string operators.
 
--  [[`Options` | #options]] and [`SwingOptions`](#swingoptions) manages properties stored in file (used to manage
-   persistent application options).
+-  [`Options`](https://github.com/m-marini/utils-lib/blob/master/README.md#options) and 
+   [`SwingOptions`](https://github.com/m-marini/utils-lib/blob/master/README.md#swingoptions) manages properties stored in file
+   (used to manage persistent application options).
 
 
 Options
