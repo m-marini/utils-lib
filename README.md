@@ -12,11 +12,11 @@ The `org.mmarini.swing` has utilities to manage easly swing UI:
 -  `GridLayoutHelper` create GridBagLayout containers mapping the constraint 
    attributes with string operators
 
--  `ActionBuilder` sets up Action properties from resource bundle file and creates
+-  [`ActionBuilder`](actionbuilder) sets up Action properties from resource bundle file and creates
    tool bar and menu bar with
    string operators.
 
--  `Options` and `SwingOptions` manages properties stored in file (used to manage
+-  [`Options`](options) and [`SwingOptions`](swingoptions) manages properties stored in file (used to manage
    persistent application options).
 
 
