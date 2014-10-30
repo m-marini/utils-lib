@@ -54,6 +54,14 @@ public interface FPMap<K, V> extends Map<K, V> {
 
 	/**
 	 * 
+	 * @param key
+	 * @param def
+	 * @return
+	 */
+	public V getOrElse(K key, V def);
+
+	/**
+	 * 
 	 * @param f
 	 * @return
 	 */

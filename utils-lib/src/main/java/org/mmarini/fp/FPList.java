@@ -71,4 +71,18 @@ public interface FPList<T> extends List<T> {
 	 * @return
 	 */
 	public T reduce(Functor2<T, T, T> f);
+
+	/**
+	 * 
+	 * @param other
+	 * @return
+	 */
+	public <S> FPList<Tuple2<T, S>> zip(List<S> other);
+
+	/**
+	 * 
+	 * @param other
+	 * @return
+	 */
+	public FPList<Tuple2<T, Integer>> zipWithIndex();
 }

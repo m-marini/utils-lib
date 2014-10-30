@@ -33,9 +33,6 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class ActionBuilder {
-	private static final Logger logger = LoggerFactory
-			.getLogger(ActionBuilder.class);
-
 	/**
 	 * 
 	 * @param l
@@ -126,6 +123,9 @@ public class ActionBuilder {
 			final Component... c) {
 		return new ActionBuilder(null, o, null, c);
 	}
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(ActionBuilder.class);
 
 	private final ChangeListener lookAndFeelListener;
 	private final Component[] comps;

@@ -31,11 +31,6 @@ public class GridLayoutHelper<T extends Container> {
 			Functor2<GridBagConstraints, GridBagConstraints, String[]> {
 	}
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(GridLayoutHelper.class);
-
-	private static final Map<String, Modifier> MODIFIERS = new HashMap<String, Modifier>();
-
 	/**
 	 * 
 	 * @param c
@@ -58,6 +53,11 @@ public class GridLayoutHelper<T extends Container> {
 		}
 		return n;
 	}
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(GridLayoutHelper.class);
+
+	private static final Map<String, Modifier> MODIFIERS = new HashMap<String, Modifier>();
 
 	private final ResourceBundle bundle;
 

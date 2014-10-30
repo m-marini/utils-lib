@@ -1,6 +1,7 @@
 package org.mmarini.fp;
 
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertThat;
 
@@ -30,6 +31,13 @@ public class FPHashMapTest {
 						return !"BK".equals(p.getKey());
 					}
 				}), allOf(hasEntry("AK", "AV"), hasEntry("CK", "CV")));
+	}
+
+	@Test
+	public void testgetOrElse() {
+		assertThat(map.getOrElse("AK", "?"), equalTo("AV"));
+		assertThat(map.getOrElse("ZK", "?"), equalTo("?"));
+
 	}
 
 	@Test

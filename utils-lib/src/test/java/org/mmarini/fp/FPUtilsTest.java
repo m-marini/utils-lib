@@ -14,7 +14,6 @@ public class FPUtilsTest {
 
 	@Test
 	public void test() {
-		@SuppressWarnings("unchecked")
 		final FPList<FPList<String>> l = new FPArrayList<FPList<String>>(
 				new FPArrayList<String>("A", "B"), new FPArrayList<String>("C",
 						"D", "E"));

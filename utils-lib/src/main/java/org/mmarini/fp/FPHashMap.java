@@ -115,6 +115,17 @@ public class FPHashMap<K, V> extends HashMap<K, V> implements FPMap<K, V> {
 	}
 
 	/**
+	 * s
+	 * 
+	 * @see org.mmarini.fp.FPMap#getOrElse(java.lang.Object, java.lang.Object)
+	 */
+	@Override
+	public V getOrElse(final K key, final V def) {
+		final V v = get(key);
+		return v != null ? v : def;
+	}
+
+	/**
 	 * @see org.mmarini.fp.FPMap#map(org.mmarini.fp.Functor1)
 	 */
 	@Override

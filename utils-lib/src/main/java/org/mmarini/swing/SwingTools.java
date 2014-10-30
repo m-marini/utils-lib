@@ -38,9 +38,6 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class SwingTools {
-	private static final Logger logger = LoggerFactory
-			.getLogger(SwingTools.class);
-
 	/**
 	 * 
 	 * @param c
@@ -131,6 +128,9 @@ public class SwingTools {
 		s.setEditor(e);
 		return s;
 	}
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(SwingTools.class);
 
 	private final ResourceBundle bundle;
 

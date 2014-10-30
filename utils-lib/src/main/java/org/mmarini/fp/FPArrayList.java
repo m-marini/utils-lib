@@ -5,6 +5,7 @@ package org.mmarini.fp;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author us00852
@@ -143,6 +144,31 @@ public class FPArrayList<T> extends ArrayList<T> implements FPList<T> {
 		T r = null;
 		for (final T i : this)
 			r = (r == null) ? i : f.apply(r, i);
+		return r;
+	}
+
+	/**
+	 * @see org.mmarini.fp.FPList#zip(java.util.List)
+	 */
+	@Override
+	public <S> FPList<Tuple2<T, S>> zip(final List<S> other) {
+		final int n = Math.min(size(), other.size());
+		final FPArrayList<Tuple2<T, S>> r = new FPArrayList<Tuple2<T, S>>(n);
+		for (int i = 0; i < n; ++i)
+			r.add(new Tuple2<T, S>(get(i), other.get(i)));
+		return r;
+	}
+
+	/**
+	 * @see org.mmarini.fp.FPList#zipWithIndex()
+	 */
+	@Override
+	public FPList<Tuple2<T, Integer>> zipWithIndex() {
+		final FPArrayList<Tuple2<T, Integer>> r = new FPArrayList<Tuple2<T, Integer>>(
+				size());
+		int i = 0;
+		for (final T v : this)
+			r.add(new Tuple2<T, Integer>(v, i++));
 		return r;
 	}
 }
