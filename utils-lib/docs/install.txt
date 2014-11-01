@@ -1,5 +1,5 @@
 
-deploy:deploy-file -Durl=file:~/git/utils-lib/utils-lib/repo/ -Dfile=target/utils-lib-1.3.1.jar -DgroupId=org.mmarini -DartifactId=utils-lib -Dpackaging=jar -Dversion=1.3.1
+deploy:deploy-file -Durl=file:~/git/utils-lib/utils-lib/repo/ -Dfile=target/utils-lib-1.4.0-BETA.jar -DgroupId=org.mmarini -DartifactId=utils-lib -Dpackaging=jar -Dversion=1.0-BETA
 deploy:deploy-file -Durl=file:~/git/utils-lib/utils-lib/repo/ -Dfile=target/j3dcore.jar -DgroupId=org.mmarini.java3d -DartifactId=j3dcore -Dpackaging=jar -Dversion=1.5.2
 deploy:deploy-file -Durl=file:~/git/utils-lib/utils-lib/repo/ -Dfile=target/j3dutils.jar -DgroupId=org.mmarini.java3d -DartifactId=j3dutils -Dpackaging=jar -Dversion=1.5.2
 deploy:deploy-file -Durl=file:~/git/utils-lib/utils-lib/repo/ -Dfile=target/vecmath.jar -DgroupId=org.mmarini.java3d -DartifactId=vecmath -Dpackaging=jar -Dversion=1.5.2

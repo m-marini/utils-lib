@@ -163,12 +163,12 @@ public class FPArrayList<T> extends ArrayList<T> implements FPList<T> {
 	 * @see org.mmarini.fp.FPList#zipWithIndex()
 	 */
 	@Override
-	public FPList<Tuple2<T, Integer>> zipWithIndex() {
-		final FPArrayList<Tuple2<T, Integer>> r = new FPArrayList<Tuple2<T, Integer>>(
+	public FPList<Tuple2<Integer, T>> zipWithIndex() {
+		final FPArrayList<Tuple2<Integer, T>> r = new FPArrayList<Tuple2<Integer, T>>(
 				size());
 		int i = 0;
 		for (final T v : this)
-			r.add(new Tuple2<T, Integer>(v, i++));
+			r.add(new Tuple2<>(i++, v));
 		return r;
 	}
 }

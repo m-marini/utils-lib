@@ -3,7 +3,7 @@
   <groupId>org.mmarini</groupId>
   <artifactId>utils-lib</artifactId>
   <versioning>
-    <release>1.3.1</release>
+    <release>1.4.0-BETA</release>
     <versions>
       <version>1.0.0</version>
       <version>1.1.0</version>
@@ -11,7 +11,8 @@
       <version>1.2.0</version>
       <version>1.3.0</version>
       <version>1.3.1</version>
+      <version>1.4.0-BETA</version>
     </versions>
-    <lastUpdated>20141101180559</lastUpdated>
+    <lastUpdated>20141101215459</lastUpdated>
   </versioning>
 </metadata>

@@ -84,5 +84,5 @@ public interface FPList<T> extends List<T> {
 	 * @param other
 	 * @return
 	 */
-	public FPList<Tuple2<T, Integer>> zipWithIndex();
+	public FPList<Tuple2<Integer, T>> zipWithIndex();
 }

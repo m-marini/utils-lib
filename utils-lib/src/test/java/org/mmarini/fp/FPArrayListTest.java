@@ -44,11 +44,11 @@ public class FPArrayListTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testZipWithIndex() {
-		final FPList<Tuple2<String, Integer>> list = new FPArrayList<String>(
+		final FPList<Tuple2<Integer, String>> list = new FPArrayList<String>(
 				"A", "B", "C").zipWithIndex();
 		assertThat(
 				list,
-				hasItems(equalTo(new Tuple2<>("A", 0)), equalTo(new Tuple2<>(
-						"B", 1)), equalTo(new Tuple2<>("C", 2))));
+				hasItems(equalTo(new Tuple2<>(0, "A")), equalTo(new Tuple2<>(1,
+						"B")), equalTo(new Tuple2<>(2, "C"))));
 	}
 }
