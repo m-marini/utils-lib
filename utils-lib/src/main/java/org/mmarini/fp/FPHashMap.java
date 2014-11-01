@@ -4,7 +4,9 @@
 package org.mmarini.fp;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * @author us00852
@@ -21,6 +23,7 @@ public class FPHashMap<K, V> extends HashMap<K, V> implements FPMap<K, V> {
 
 	/**
 	 * 
+	 * @param args
 	 */
 	@SafeVarargs
 	public FPHashMap(final Entry<? extends K, ? extends V>... args) {
@@ -42,6 +45,16 @@ public class FPHashMap<K, V> extends HashMap<K, V> implements FPMap<K, V> {
 	 */
 	public FPHashMap(final int initialCapacity, final float loadFactor) {
 		super(initialCapacity, loadFactor);
+	}
+
+	/**
+	 * 
+	 * @param args
+	 */
+	public FPHashMap(final List<? extends Entry<? extends K, ? extends V>> args) {
+		super(args.size());
+		for (final Entry<? extends K, ? extends V> e : args)
+			put(e.getKey(), e.getValue());
 	}
 
 	/**
@@ -152,10 +165,24 @@ public class FPHashMap<K, V> extends HashMap<K, V> implements FPMap<K, V> {
 	 * @see org.mmarini.fp.FPMap#remap(org.mmarini.fp.Functor1)
 	 */
 	@Override
-	public <S> FPMap<K, S> remap(final Functor1<S, java.util.Map.Entry<K, V>> f) {
+	public <S> FPMap<K, S> remap(final Functor1<S, Entry<K, V>> f) {
 		final FPMap<K, S> r = new FPHashMap<>();
 		for (final Entry<K, V> e : entrySet())
 			r.put(e.getKey(), f.apply(e));
 		return r;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	@Override
+	public FPList<Entry<K, V>> toList() {
+		return map(new Functor1<Entry<K, V>, Entry<K, V>>() {
+			@Override
+			public Entry<K, V> apply(final Entry<K, V> p) {
+				return p;
+			}
+		});
 	}
 }

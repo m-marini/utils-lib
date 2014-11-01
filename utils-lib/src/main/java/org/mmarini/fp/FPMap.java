@@ -80,4 +80,10 @@ public interface FPMap<K, V> extends Map<K, V> {
 	 * @return
 	 */
 	public <S> FPMap<K, S> remap(Functor1<S, Entry<K, V>> f);
+
+	/**
+	 * 
+	 * @return
+	 */
+	public FPList<Entry<K, V>> toList();
 }
