@@ -7,11 +7,14 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -23,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.NumberEditor;
+import javax.swing.JTextArea;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.WindowConstants;
 import javax.swing.event.HyperlinkEvent;
@@ -155,48 +159,103 @@ public class SwingTools {
 	}
 
 	/**
-	 * @param e
-	 */
-	public void alert(final Exception e) {
-		logger.error(e.getMessage(), e);
-		JOptionPane.showMessageDialog(parentComponent, e.getMessage(),
-				getString("Alert.title"), //$NON-NLS-1$
-				JOptionPane.ERROR_MESSAGE);
-	}
-
-	/**
 	 * @param message
 	 * @param args
+	 * @return
 	 */
-	public void alert(final String message, final Object... args) {
+	public SwingTools alert(final String message, final Object... args) {
 		JOptionPane.showMessageDialog(parentComponent,
 				String.format(message, args), getString("Alert.title"), //$NON-NLS-1$
 				JOptionPane.WARNING_MESSAGE);
+		return this;
 	}
 
 	/**
-	 * @param key
-	 * @param args
+	 * @param ex
+	 * @return
 	 */
-	public void alertLocalized(final Exception e, final String key,
-			final Object... args) {
-		logger.error(e.getMessage(), e);
-		JOptionPane.showMessageDialog(
-				parentComponent,
-				new String[] { String.format(getString(key), args),
-						e.getMessage() }, getString("Alert.title"), //$NON-NLS-1$
+	public SwingTools alert(final Throwable ex) {
+		logger.error(ex.getMessage(), ex);
+		JOptionPane.showMessageDialog(parentComponent, ex.getMessage(),
+				getString("Alert.title"), //$NON-NLS-1$
 				JOptionPane.ERROR_MESSAGE);
-
+		return this;
 	}
 
 	/**
 	 * @param key
 	 * @param args
+	 * @return
 	 */
-	public void alertLocalized(final String key, final Object... args) {
+	public SwingTools alertLocalized(final String key, final Object... args) {
 		JOptionPane.showMessageDialog(parentComponent,
 				String.format(getString(key), args), getString("Alert.title"), //$NON-NLS-1$
 				JOptionPane.WARNING_MESSAGE);
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param ex
+	 * @param key
+	 * @param args
+	 * @return
+	 */
+	public SwingTools alertLocalized(final Throwable ex, final String key,
+			final Object... args) {
+		logger.error(ex.getMessage(), ex);
+		JOptionPane.showMessageDialog(
+				parentComponent,
+				new String[] { String.format(getString(key), args),
+						ex.getMessage() }, getString("Alert.title"), //$NON-NLS-1$
+				JOptionPane.ERROR_MESSAGE);
+		return this;
+	}
+
+	/**
+	 * @param ex
+	 * @return
+	 */
+	public SwingTools alertStackTrace(final Throwable ex) {
+		logger.error(ex.getMessage(), ex);
+		final StringWriter sw = new StringWriter();
+		ex.printStackTrace(new PrintWriter(sw));
+		final JTextArea ta = new JTextArea(sw.toString());
+		ta.setRows(10);
+		ta.setColumns(40);
+		ta.setTabSize(4);
+		ta.setFont(Font.decode(Font.MONOSPACED));
+		ta.setEditable(false);
+		JOptionPane.showMessageDialog(parentComponent,
+				new Object[] { ex.getMessage(), new JScrollPane(ta) },
+				getString("Alert.title"), //$NON-NLS-1$
+				JOptionPane.ERROR_MESSAGE);
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param ex
+	 * @param key
+	 * @param args
+	 * @return
+	 */
+	public SwingTools alertStackTrace(final Throwable ex, final String key,
+			final Object... args) {
+		logger.error(ex.getMessage(), ex);
+		final StringWriter sw = new StringWriter();
+		ex.printStackTrace(new PrintWriter(sw));
+		final JTextArea ta = new JTextArea(sw.toString());
+		ta.setRows(10);
+		ta.setColumns(60);
+		ta.setTabSize(4);
+		ta.setFont(Font.decode(Font.MONOSPACED));
+		ta.setEditable(false);
+		JOptionPane.showMessageDialog(parentComponent,
+				new Object[] { String.format(getString(key), args),
+						new JScrollPane(ta) }, getString("Alert.title"), //$NON-NLS-1$
+				JOptionPane.ERROR_MESSAGE);
+		return this;
 	}
 
 	/**
